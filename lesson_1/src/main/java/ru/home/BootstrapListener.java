@@ -18,8 +18,8 @@ public class BootstrapListener implements ServletContextListener {
         UserRepository userRepository = new UserRepository();
         sc.setAttribute("userRepository", userRepository);
 
-        userRepository.insert(new User("user1"));
-        userRepository.insert(new User("user2"));
-        userRepository.insert(new User("user3"));
+        userRepository.insert(new User("Бяша"));
+        userRepository.insert(new User("Гуся"));
+        userRepository.insert(new User("Моня"));
     }
 }
