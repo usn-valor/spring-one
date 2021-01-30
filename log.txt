@@ -1,0 +1,5 @@
+2021.01.30 19:40:15: Server: Lilya connected
+You can change your nickname by typing change_nickname old nickname
+2021.01.30 19:40:15: Server: Your Nickname Lilya
+2021.01.30 19:40:19: Lilya: dsxvszdv
+2021.01.30 19:40:21: Lilya: vsvv
