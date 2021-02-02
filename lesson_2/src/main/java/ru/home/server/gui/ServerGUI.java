@@ -21,14 +21,14 @@ public class ServerGUI extends JFrame implements ActionListener, Thread.Uncaught
     private final JPanel panelTop = new JPanel(new GridLayout(1, 2));
     private final JTextArea log = new JTextArea();
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ServerGUI();
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                new ServerGUI();
+//            }
+//        });
+//    }
 
     private ServerGUI() {
         Thread.setDefaultUncaughtExceptionHandler(this);
