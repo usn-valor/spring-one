@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.home.persist.User;
 import ru.home.persist.UserRepository;
 
-@Controller
+@Controller // аналог сервлета, обрабатывающий соответствующий URL
 @RequestMapping("/user")
 public class UserController {
 
@@ -45,7 +45,7 @@ public class UserController {
     public String update(User user) {
         logger.info("Update endpoint requested");
 
-        if (user.getId() != -1) {
+        if (user.getId() != null) {
             logger.info("Updating user with id {}", user.getId());
             userRepository.update(user);
         } else {
@@ -56,14 +56,18 @@ public class UserController {
     }
 
     @GetMapping("/new")
-    public String create() {
-        // TODO
-        return null;
+    public String create(Model model) {
+        logger.info("Creating new user");
+
+        model.addAttribute("user", new User());
+        return "user_form";
     }
 
     @GetMapping("/{id}/delete")
     public String remove(@PathVariable("id") Long id) {
-        // TODO
-        return null;
+        logger.info("Deleting User for id {} requested", id);
+
+        userRepository.delete(id);
+        return "redirect:/user";
     }
 }

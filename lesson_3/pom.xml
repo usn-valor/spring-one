@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
 
-    <artifactId>lesson-03</artifactId>
+    <artifactId>lesson_3</artifactId>
 
     <dependencies>
         <dependency>
@@ -64,8 +64,8 @@
                 <version>2.2</version>
                 <configuration>
                     <url>http://localhost:8080/manager/text</url>
-                    <username>admin</username>
-                    <password>admin</password>
+                    <username>arsen</username>
+                    <password>1234</password>
                     <path>/spring-mvc-app</path>
                 </configuration>
             </plugin>

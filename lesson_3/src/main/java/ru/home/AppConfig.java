@@ -17,7 +17,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @EnableWebMvc
-@ComponentScan("ru.geekbrains")
+@ComponentScan("ru.home")
 @Configuration
 public class AppConfig implements WebMvcConfigurer {
 
@@ -28,6 +28,9 @@ public class AppConfig implements WebMvcConfigurer {
         this.applicationContext = applicationContext;
     }
 
+    /**
+     *  Метод, указывающий, где будет лежать вся статика (стили и прочее...)
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
@@ -48,6 +51,7 @@ public class AppConfig implements WebMvcConfigurer {
         resolver.setApplicationContext(applicationContext);
         resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".html");
+        resolver.setCharacterEncoding("UTF-8");
         resolver.setCacheable(false);
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;
