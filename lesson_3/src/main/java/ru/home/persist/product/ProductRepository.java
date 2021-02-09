@@ -1,4 +1,6 @@
-package ru.home.persist;
+package ru.home.persist.product;
+
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Repository
 public class ProductRepository {
 
     private Map<Long, Product> productMap = new ConcurrentHashMap<>();

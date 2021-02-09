@@ -1,4 +1,4 @@
-package ru.home.persist;
+package ru.home.persist.product;
 
 public class Product {
 

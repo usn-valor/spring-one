@@ -41,18 +41,18 @@
         <div class="col-12">
             <table class="table table-bordered my-2">
                 <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">ProductName</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Actions</th>
-                </tr>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
                 <tr th:each="product : ${products}">
                     <th th:text="${product.id}" scope="row">1</th>
-                    <td th:text="${product.username}">Alex</td>
+                    <td th:text="${product.productName}">Alex</td>
                     <td th:text="${product.description}">Alex</td>
                     <td th:text="${product.price}">Alex</td>
                     <td>

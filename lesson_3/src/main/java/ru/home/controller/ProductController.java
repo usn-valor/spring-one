@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.home.persist.Product;
-import ru.home.persist.ProductRepository;
+import ru.home.persist.product.Product;
+import ru.home.persist.product.ProductRepository;
 
-//@Controller // аналог сервлета, обрабатывающий соответствующий URL
+@Controller // аналог сервлета, обрабатывающий соответствующий URL
 @RequestMapping("/product")
 public class ProductController {
 
@@ -37,7 +37,7 @@ public class ProductController {
     public String editPage(@PathVariable("id") Long id, Model model) {
         logger.info("Edit page for id {} requested", id);
 
-        model.addAttribute("user", productRepository.findById(id));
+        model.addAttribute("product", productRepository.findById(id));
         return "product_form";
     }
 

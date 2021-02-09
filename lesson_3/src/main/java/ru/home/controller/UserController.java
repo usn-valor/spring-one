@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.home.persist.User;
-import ru.home.persist.UserRepository;
+import ru.home.persist.user.User;
+import ru.home.persist.user.UserRepository;
 
 @Controller // аналог сервлета, обрабатывающий соответствующий URL
 @RequestMapping("/user")

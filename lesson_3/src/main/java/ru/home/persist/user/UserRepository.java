@@ -1,4 +1,4 @@
-package ru.home.persist;
+package ru.home.persist.user;
 
 import org.springframework.stereotype.Repository;
 
