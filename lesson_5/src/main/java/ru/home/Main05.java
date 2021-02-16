@@ -9,7 +9,7 @@ import ru.home.persist.user.UserRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-public class Main {
+public class Main05 {
 
     public static void main(String[] args) {
         EntityManagerFactory emFactory = new Configuration()

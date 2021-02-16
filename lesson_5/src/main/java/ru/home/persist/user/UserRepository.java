@@ -3,6 +3,8 @@ package ru.home.persist.user;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class UserRepository {
 
@@ -13,48 +15,58 @@ public class UserRepository {
     }
 
     public List<User> findAll() {
-        System.out.println("All users in table");
-        return emFactory.createEntityManager().createQuery("from User", User.class).getResultList();
+        return executeForEntityManager(
+                em -> em.createNamedQuery("allUsers", User.class).getResultList()
+        );
     }
 
     public User findById(long id) {
-        return emFactory.createEntityManager().find(User.class, id);
+        return executeForEntityManager(
+                em -> em.find(User.class, id)
+        );
     }
 
     public void insert(User user) {
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
-
-        em.persist(user);
-
-        em.getTransaction().commit();
-
-        em.close();
+        executeInTransaction(em -> em.persist(user));
     }
 
     public void update(User user) {
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
-
-        User u = em.find(User.class, user.getId());
-
-        em.getTransaction().begin();
-
-        u.setPassword("1234");
-
-        em.getTransaction().commit();
-        em.close();
+        executeInTransaction(em -> em.merge(user));
     }
 
     public void delete(long id) {
+        executeInTransaction(em -> {
+            User user = em.find(User.class, id);
+            if (user != null) {
+                em.remove(user);
+            }
+        });
+    }
+
+    private <R> R executeForEntityManager(Function<EntityManager, R> function) {
         EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
+        try {
+            return function.apply(em);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 
-        em.createQuery("delete from User where id=:id")
-                .setParameter("id", id).executeUpdate();
-
-        em.getTransaction().commit();
-        em.close();
+    private void executeInTransaction(Consumer<EntityManager> consumer) {
+        EntityManager em = emFactory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            consumer.accept(em);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 
 }

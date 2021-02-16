@@ -1,6 +1,7 @@
 package ru.home.persist.user;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -22,6 +23,12 @@ public class User {
 
     @Column
     private String email;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Contact> contacts;
+
+    @ManyToMany
+    private List<Role> roles;
 
     public User() {
     }
@@ -66,6 +73,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
