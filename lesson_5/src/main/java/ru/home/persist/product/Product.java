@@ -1,6 +1,10 @@
 package ru.home.persist.product;
 
+import ru.home.persist.user.User;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -21,12 +25,15 @@ public class Product {
     private String description;
 
     @Column
-    private int price;
+    private BigDecimal price;
+    
+    @ManyToMany
+    private List<User> users;
 
     public Product() {
     }
 
-    public Product(String productName, String description, int price) {
+    public Product(String productName, String description, BigDecimal price) {
         this.productName = productName;
         this.description = description;
         this.price = price;
@@ -56,11 +63,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

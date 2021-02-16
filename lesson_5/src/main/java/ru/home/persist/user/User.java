@@ -1,5 +1,7 @@
 package ru.home.persist.user;
 
+import ru.home.persist.product.Product;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class User {
 
     @ManyToMany
     private List<Role> roles;
+
+    @ManyToMany
+    private List<Product> products;
 
     public User() {
     }

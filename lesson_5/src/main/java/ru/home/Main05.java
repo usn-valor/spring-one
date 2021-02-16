@@ -8,6 +8,7 @@ import ru.home.persist.user.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.math.BigDecimal;
 
 public class Main05 {
 
@@ -21,8 +22,8 @@ public class Main05 {
         //new UserRepository(emFactory).insert(new User("Vasya", "12345", "fff@mail.ru"));
 
         ProductRepository repository = new ProductRepository(emFactory);
-        repository.insert(new Product("Phone", "Samsung", 500));
-        repository.insert(new Product("Notebook", "Asus", 500));
+        repository.insert(new Product("Phone", "Samsung", new BigDecimal(500)));
+        repository.insert(new Product("Notebook", "Asus", new BigDecimal(500)));
 
         // INSERT
 //        em.getTransaction().begin();
