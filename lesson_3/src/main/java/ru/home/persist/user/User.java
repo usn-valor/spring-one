@@ -1,4 +1,4 @@
-package ru.home.persist;
+package ru.home.persist.user;
 
 public class User {
 
@@ -7,6 +7,9 @@ public class User {
     private String username;
 
     private String password;
+
+    public User() {
+    }
 
     public User(String username) {
         this.username = username;

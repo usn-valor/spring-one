@@ -1,0 +1,9 @@
+ru\home\controller\UserController.class
+ru\home\controller\StartPageController.class
+ru\home\persist\user\User.class
+ru\home\persist\user\UserRepository.class
+ru\home\persist\product\Product.class
+ru\home\WebInitializer.class
+ru\home\controller\ProductController.class
+ru\home\AppConfig.class
+ru\home\persist\product\ProductRepository.class
