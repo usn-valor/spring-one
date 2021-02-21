@@ -1,5 +1,6 @@
 package ru.home.persist.product;
 
+import ru.home.persist.LineItem;
 import ru.home.persist.user.User;
 
 import javax.persistence.*;
@@ -26,6 +27,9 @@ public class Product {
 
     @Column
     private BigDecimal price;
+
+    @OneToMany(mappedBy = "product")
+    private List<LineItem> lineItems;
 
     @ManyToMany
     private List<User> users;
@@ -69,5 +73,13 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public List<LineItem> getLineItems() {
+        return lineItems;
+    }
+
+    public void setLineItems(List<LineItem> lineItems) {
+        this.lineItems = lineItems;
     }
 }

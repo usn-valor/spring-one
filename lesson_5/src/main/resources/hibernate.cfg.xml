@@ -18,5 +18,8 @@
 
         <mapping class="ru.home.persist.user.User"/>
         <mapping class="ru.home.persist.product.Product"/>
+        <mapping class="ru.home.persist.LineItem"/>
+        <mapping class="ru.home.persist.user.Contact"/>
+        <mapping class="ru.home.persist.user.Role"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,11 +1,9 @@
 package ru.home.persist.user;
 
-import ru.home.persist.LineItem;
-import ru.home.persist.product.Product;
+import ru.home.service.UserRepr;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -19,34 +17,29 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //@NotEmpty // эта аннотация удалена, так как для отображения, где она используется создан отдельный DTO-класс
     @Column(length = 128, unique = true, nullable = false)
     private String username;
 
+    //@NotEmpty
     @Column(length = 512, nullable = false)
     private String password;
+
+    //@NotEmpty
+    //@Transient // костыльный способ (аннотация для случая, когда поле не должно попадать в БД)
+    private String matchingPassword;
 
     @Column
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Contact> contacts;
-
-    @ManyToMany
-    private List<Role> roles;
-
-    @OneToMany(mappedBy = "user")
-    private List<LineItem> lineItems;
-
-    @ManyToMany
-    private List<Product> products;
-
     public User() {
     }
 
-    public User(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
+    public User(UserRepr user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
     }
 
     public User(String username) {
@@ -83,30 +76,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<Contact> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public List<LineItem> getLineItems() {
-        return lineItems;
-    }
-
-    public void setLineItems(List<LineItem> lineItems) {
-        this.lineItems = lineItems;
     }
 
     @Override
