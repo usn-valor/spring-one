@@ -26,7 +26,7 @@ public class Product {
 
     @Column
     private BigDecimal price;
-    
+
     @ManyToMany
     private List<User> users;
 
