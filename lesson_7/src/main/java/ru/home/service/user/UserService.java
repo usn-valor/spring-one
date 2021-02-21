@@ -1,6 +1,6 @@
-package ru.home.service;
+package ru.home.service.user;
 
-import ru.home.persist.user.User;
+import ru.home.service.user.UserRepr;
 
 import java.util.List;
 import java.util.Optional;

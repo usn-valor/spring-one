@@ -1,9 +1,8 @@
 package ru.home.persist.user;
 
-import ru.home.service.UserRepr;
+import ru.home.service.user.UserRepr;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")

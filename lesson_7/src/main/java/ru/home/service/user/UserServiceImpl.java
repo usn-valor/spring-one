@@ -1,10 +1,12 @@
-package ru.home.service;
+package ru.home.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.home.persist.user.User;
 import ru.home.persist.user.UserRepository;
+import ru.home.service.user.UserRepr;
+import ru.home.service.user.UserService;
 
 import java.util.List;
 import java.util.Optional;

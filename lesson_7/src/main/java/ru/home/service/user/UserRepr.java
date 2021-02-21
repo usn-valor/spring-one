@@ -1,4 +1,4 @@
-package ru.home.service;
+package ru.home.service.user;
 
 import ru.home.persist.user.User;
 
@@ -74,15 +74,5 @@ public class UserRepr {
 
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
     }
 }
