@@ -14,6 +14,7 @@ import ru.home.service.product.ProductService;
 import ru.home.service.user.UserRepr;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,14 +32,18 @@ public class ProductController {
     }
 
     @GetMapping
-    public String listPage(Model model, @RequestParam("productNameFilter") Optional<String> productNameFilter) {
+    public String listPage(Model model, @RequestParam("productNameFilter") Optional<String> productNameFilter,
+                                        @RequestParam("description") Optional<String> description,
+                                        @RequestParam("priceMinFilter") Optional<BigDecimal> priceMinFilter,
+                                        @RequestParam("priceMaxFilter") Optional<BigDecimal> priceMaxFilter) {
         logger.info("List page requested");
 
-        List<ProductRepr> products;
-        if (productNameFilter.isPresent() && productNameFilter.get().isBlank())
-            products = productService.findWithFilter(productNameFilter.get());
-        else
-            products = productService.findAll();
+        List<ProductRepr> products = productService.findWithFilter(
+                productNameFilter.filter(s -> !s.isBlank()).orElse(null),
+                description.filter(s -> !s.isBlank()).orElse(null),
+                priceMinFilter.orElse(null),
+                priceMaxFilter.orElse(null)
+        );
         model.addAttribute("products", products);
         return "product";
     }
@@ -52,11 +57,11 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public String update(@Valid ProductRepr product, BindingResult result) {
+    public String update(@Valid @ModelAttribute ProductRepr product, BindingResult result) {
         logger.info("Update endpoint requested");
 
         if (result.hasErrors())
-            return "user_form";
+            return "product_form";
         logger.info("Updating user with id {}", product.getId());
         productService.save(product);
         return "redirect:/product";

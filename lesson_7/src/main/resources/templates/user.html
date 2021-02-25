@@ -47,16 +47,28 @@
                            name="usernameFilter" placeholder="Username filter">
                 </div>
 
-                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+                <div class="form-group mb-2 mr-2">
+                    <label for="ageMinFilter" class="sr-only">Age min</label>
+                    <input type="number" class="form-control" id="ageMinFilter" th:value="${param.ageMinFilter}"
+                           name="ageMinFilter" placeholder="Age min filter">
+                </div>
+
+                <div class="form-group mb-2 mr-2">
+                    <label for="ageMaxFilter" class="sr-only">Age max</label>
+                    <input type="number" class="form-control" id="ageMaxFilter" th:value="${param.ageMaxFilter}"
+                           name="ageMaxFilter" placeholder="Age max filter">
+
+                <button type="submit" class="btn btn-primary ml-2">Применить</button>
             </form>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 p-0">
             <table class="table table-bordered my-2">
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Username</th>
+                    <th scope="col">Age</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -64,6 +76,7 @@
                 <tr th:each="user : ${users}" >
                     <th th:text="${user.id}" scope="row">1</th>
                     <td th:text="${user.username}">Alex</td>
+                    <td th:text="${user.age}">21</td>
                     <td>
                         <a class="btn btn-success" th:href="@{/user/{id}(id = ${user.id})}"><i class="fas fa-edit"></i></a>
                         <form class="d-inline" th:method="delete" th:action="@{/user/{id}(id = ${user.id})}">

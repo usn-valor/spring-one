@@ -51,6 +51,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" th:field="*{age}" class="form-control" id="age" name="age" placeholder="Enter user age">
+                </div>
+
+                <div class="form-group">
                     <label>Password</label>
                     <input type="password" th:field="*{password}" class="form-control" id="password" name="password" placeholder="Enter password">
                     <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>

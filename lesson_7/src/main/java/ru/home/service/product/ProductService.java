@@ -1,5 +1,6 @@
 package ru.home.service.product;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,5 +14,5 @@ public interface ProductService {
 
     void delete(long id);
 
-    List<ProductRepr> findWithFilter(String productNameFilter);
+    List<ProductRepr> findWithFilter(String productNameFilter, String descriptionFilter, BigDecimal minAge, BigDecimal maxAge);
 }

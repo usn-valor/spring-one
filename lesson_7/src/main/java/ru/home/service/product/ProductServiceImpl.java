@@ -8,6 +8,7 @@ import ru.home.persist.product.ProductRepository;
 import ru.home.persist.user.User;
 import ru.home.persist.user.UserRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,7 +47,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductRepr> findWithFilter(String productNameFilter) {
-        return productRepository.findProductByProductNameLike(productNameFilter).stream().map(ProductRepr::new).collect(Collectors.toList());
+    public List<ProductRepr> findWithFilter(String productNameFilter, String descriptionFilter, BigDecimal priceMinFilter, BigDecimal priceMaxFilter) {
+        return productRepository.findWithFilter(productNameFilter, descriptionFilter, priceMinFilter, priceMaxFilter).
+                stream().map(ProductRepr::new).collect(Collectors.toList());
     }
 }
