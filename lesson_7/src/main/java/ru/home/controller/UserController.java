@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.home.service.UserRepr;
-import ru.home.service.UserService;
+import ru.home.service.user.UserRepr;
+import ru.home.service.user.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,14 +28,20 @@ public class UserController {
     }
 
     @GetMapping
-    public String listPage(Model model, @RequestParam("usernameFilter") Optional<String> usernameFilter) {
+    public String listPage(Model model, @RequestParam("usernameFilter") Optional<String> usernameFilter,
+                                        @RequestParam("ageMinFilter") Optional<Integer> ageMinFilter,
+                                        @RequestParam("ageMaxFilter") Optional<Integer> ageMaxFilter) {
         logger.info("List page requested");
 
-        List<UserRepr> users;
-        if (usernameFilter.isPresent() && usernameFilter.get().isBlank())
+        List<UserRepr> users = userService.findWithFilter(
+                usernameFilter.filter(s -> !s.isBlank()).orElse(null),
+                ageMinFilter.orElse(null),
+                ageMaxFilter.orElse(null)
+                );
+        /*if (usernameFilter.isPresent() && !usernameFilter.get().isBlank())
             users = userService.findWithFilter(usernameFilter.get());
         else
-            users = userService.findAll();
+            users = userService.findAll();*/
         model.addAttribute("users", users);
         return "user";
     }
@@ -50,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String update(@Valid UserRepr user, BindingResult result) {
+    public String update(@Valid @ModelAttribute("user") UserRepr user, BindingResult result) {
         logger.info("Update endpoint requested");
 
         if (result.hasErrors()) {

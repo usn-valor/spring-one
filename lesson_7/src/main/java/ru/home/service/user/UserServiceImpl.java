@@ -1,10 +1,14 @@
-package ru.home.service;
+package ru.home.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.home.persist.user.User;
 import ru.home.persist.user.UserRepository;
+import ru.home.persist.user.UserSpecification;
+import ru.home.service.user.UserRepr;
+import ru.home.service.user.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,8 +64,26 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    /**
+     * Вариант без спецификации
+     */
+//    @Override
+//    public List<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge) {
+//        return userRepository.findWithFilter(usernameFilter, minAge, maxAge).stream().map(UserRepr::new).collect(Collectors.toList());
+//    }
+
+    /**
+     * Вариант со спецификациями (применяется при сложных запросах, когда много критериев)
+     */
     @Override
-    public List<UserRepr> findWithFilter(String usernameFilter) {
-        return userRepository.findUserByUsernameLike(usernameFilter).stream().map(UserRepr::new).collect(Collectors.toList());
+    public List<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge) {
+        Specification<User> spec = Specification.where(null);
+        if (usernameFilter != null && !usernameFilter.isBlank())
+            spec = spec.and(UserSpecification.usernameLike(usernameFilter));
+        if (minAge != null)
+            spec = spec.and(UserSpecification.minAge(minAge));
+        if (maxAge != null)
+            spec = spec.and(UserSpecification.maxAge(maxAge));
+        return userRepository.findAll(spec).stream().map(UserRepr::new).collect(Collectors.toList());
     }
 }

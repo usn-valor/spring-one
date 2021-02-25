@@ -1,9 +1,8 @@
 package ru.home.persist.user;
 
-import ru.home.service.UserRepr;
+import ru.home.service.user.UserRepr;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -32,6 +31,9 @@ public class User {
     @Column
     private String email;
 
+    @Column
+    private Integer age;
+
     public User() {
     }
 
@@ -40,6 +42,7 @@ public class User {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
+        this.age = user.getAge();
     }
 
     public User(String username) {
@@ -78,13 +81,23 @@ public class User {
         this.email = email;
     }
 
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", matchingPassword='" + matchingPassword + '\'' +
                 ", email='" + email + '\'' +
+                ", age=" + age +
                 '}';
     }
 }

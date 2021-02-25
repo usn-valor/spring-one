@@ -1,4 +1,4 @@
-package ru.home.service;
+package ru.home.service.user;
 
 import ru.home.persist.user.User;
 
@@ -22,6 +22,8 @@ public class UserRepr {
     @Email
     private String email;
 
+    private Integer age;
+
     public UserRepr() {
     }
 
@@ -30,6 +32,7 @@ public class UserRepr {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
+        this.age = user.getAge();
     }
 
     public UserRepr(String username) {
@@ -76,13 +79,11 @@ public class UserRepr {
         this.matchingPassword = matchingPassword;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }
