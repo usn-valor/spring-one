@@ -1,9 +1,12 @@
-package ru.geekbrains.persist;
+package ru.home.service.user;
+
+import ru.home.persist.user.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-public class User {
+//DataTransferObject - DTO
+public class UserRepr {
 
     private Long id;
 
@@ -19,10 +22,20 @@ public class User {
     @Email
     private String email;
 
-    public User() {
+    private Integer age;
+
+    public UserRepr() {
     }
 
-    public User(String username) {
+    public UserRepr(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.age = user.getAge();
+    }
+
+    public UserRepr(String username) {
         this.username = username;
     }
 
@@ -64,5 +77,13 @@ public class User {
 
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

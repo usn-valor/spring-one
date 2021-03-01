@@ -11,7 +11,7 @@
     <groupId>ru.home</groupId>
     <artifactId>lesson_7</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>lesson_4</name>
+    <name>lesson_7</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
