@@ -48,15 +48,32 @@
             <table class="table table-bordered my-2">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Id
+                            <a th:href="@{/product(page=${param.page}, size=${param.size},
+                           productNameFilter=${param.productNameFilter}, descriptionFilter=${param.descriptionFilter},
+                           priceMinFilter=${param.priceMinFilter}, priceMaxFilter=${param.priceMaxFilter},
+                           sortField='id')}"><i class="fa fa-sort-down"></i></a>
+                        </th>
+                        <th scope="col">Product Name
+                            <a th:href="@{/product(page=${param.page}, size=${param.size},
+                           productNameFilter=${param.productNameFilter}, descriptionFilter=${param.descriptionFilter},
+                           priceMinFilter=${param.priceMinFilter}, priceMaxFilter=${param.priceMaxFilter},
+                           sortField='productName')}"><i class="fa fa-sort-down"></i></a>
+                        <th scope="col">Description
+                        <a th:href="@{/product(page=${param.page}, size=${param.size},
+                           productNameFilter=${param.productNameFilter}, descriptionFilter=${param.descriptionFilter},
+                           priceMinFilter=${param.priceMinFilter}, priceMaxFilter=${param.priceMaxFilter},
+                           sortField='description')}"><i class="fa fa-sort-down"></i></a>
+                        <th scope="col">Price
+                        <a th:href="@{/product(page=${param.page}, size=${param.size},
+                           productNameFilter=${param.productNameFilter}, descriptionFilter=${param.descriptionFilter},
+                           priceMinFilter=${param.priceMinFilter}, priceMaxFilter=${param.priceMaxFilter},
+                           sortField='price')}"><i class="fa fa-sort-down"></i></a>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                <tr th:unless="${products.empty}" th:each="product : ${products}">
+                <tr th:if="${products.hasContent()}" th:each="product : ${products.content}">
                     <th th:text="${product.id}" scope="row">1</th>
                     <td th:text="${product.productName}">Alex</td>
                     <td th:text="${product.description}">Alex</td>
@@ -69,13 +86,38 @@
                     </td>
                 </tr>
 
-                <tr th:if="${products.empty}">
+                <tr th:unless="${products.hasContent()}">
                     <td colspan="5">No data</td>
                 </tr>
 
                 </tbody>
             </table>
         </div>
+
+        <div class="col-12">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+
+                    <li th:each="num: ${#numbers.sequence(1, products.totalPages)}"
+                        th:classappend="${num == products.number + 1} ? 'active'"
+                        class="page-item">
+                        <a th:text="${num}"
+                           th:href="@{/product(page=${num}, size=${products.size},
+                           productNameFilter=${param.productNameFilter}, descriptionFilter=${param.descriptionFilter},
+                           priceMaxFilter=${param.priceMaxFilter}, priceMinFilter=${param.priceMinFilter}, sortField=${param.sortField})}"
+                           class="page-link">1<span th:if="${num == products.number + 1}" class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
     </div>
 </div>
 
