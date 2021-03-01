@@ -20,5 +20,5 @@ public interface UserService {
 
     //List<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge);
 
-    Page<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge, Integer page, Integer size);
+    Page<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge, Integer page, Integer size, String sortField);
 }

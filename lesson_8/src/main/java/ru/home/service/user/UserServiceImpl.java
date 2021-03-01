@@ -3,6 +3,7 @@ package ru.home.service.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.home.persist.user.User;
@@ -76,7 +77,7 @@ public class UserServiceImpl implements UserService {
      * Вариант со спецификациями (применяется при сложных запросах, когда много критериев)
      */
     @Override
-    public Page<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge, Integer page, Integer size) {
+    public Page<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge, Integer page, Integer size, String sortField) {
         Specification<User> spec = Specification.where(null);
         if (usernameFilter != null && !usernameFilter.isBlank())
             spec = spec.and(UserSpecification.usernameLike(usernameFilter));
@@ -84,6 +85,8 @@ public class UserServiceImpl implements UserService {
             spec = spec.and(UserSpecification.minAge(minAge));
         if (maxAge != null)
             spec = spec.and(UserSpecification.maxAge(maxAge));
+        if (sortField != null && sortField.isBlank())
+            return userRepository.findAll(spec, PageRequest.of(page, size, Sort.by(sortField))).map(UserRepr::new);
         return userRepository.findAll(spec, PageRequest.of(page, size)).map(UserRepr::new);
     }
 }

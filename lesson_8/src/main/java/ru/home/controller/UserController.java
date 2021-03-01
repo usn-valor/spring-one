@@ -35,7 +35,8 @@ public class UserController {
                                         @RequestParam("ageMinFilter") Optional<Integer> ageMinFilter,
                                         @RequestParam("ageMaxFilter") Optional<Integer> ageMaxFilter,
                                         @RequestParam("page") Optional<Integer> page,
-                                        @RequestParam("size") Optional<Integer> size) {
+                                        @RequestParam("size") Optional<Integer> size,
+                                        @RequestParam("sortField") Optional<String> sortField) {
         logger.info("List page requested");
 
         Page<UserRepr> users = userService.findWithFilter(
@@ -43,7 +44,8 @@ public class UserController {
                 ageMinFilter.orElse(null),
                 ageMaxFilter.orElse(null),
                 page.orElse(1) - 1,
-                size.orElse(3)
+                size.orElse(3),
+                sortField.orElse(null)
                 );
         /*if (usernameFilter.isPresent() && !usernameFilter.get().isBlank())
             users = userService.findWithFilter(usernameFilter.get());

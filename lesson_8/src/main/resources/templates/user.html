@@ -42,13 +42,19 @@
                 <thead>
                 <tr>
                     <th scope="col">Id
-                        <a href="#"><i class="fa fa-sort-down"></i></a>
+                        <a th:href="@{/user(page=${param.age}, size=${param.size},
+                           usernameFilter=${param.usernameFilter}, minAge=${param.minAge},
+                           maxAge=${param.maxAge}, sortField='id')}"><i class="fa fa-sort-down"></i></a>
                     </th>
                     <th scope="col">Username
-                        <a href="#"><i class="fa fa-sort-down"></i></a>
+                        <a th:href="@{/user(page=${param.age}, size=${param.size},
+                           usernameFilter=${param.usernameFilter}, minAge=${param.minAge},
+                           maxAge=${param.maxAge}, sortField='username')}"></i></a>
                     </th>
                     <th scope="col">Age
-                        <a href="#"><i class="fa fa-sort-down"></i></a>
+                        <a th:href="@{/user(page=${param.age}, size=${param.size},
+                           usernameFilter=${param.usernameFilter}, minAge=${param.minAge},
+                           maxAge=${param.maxAge}, sortField='age')}"></i></a>
                     </th>
                     <th scope="col">Actions</th>
                 </tr>
