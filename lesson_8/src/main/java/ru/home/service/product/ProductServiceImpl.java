@@ -2,10 +2,14 @@ package ru.home.service.product;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.home.persist.product.Product;
 import ru.home.persist.product.ProductRepository;
-
+import ru.home.persist.product.ProductSpecification;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -47,8 +51,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductRepr> findWithFilter(String productNameFilter, String descriptionFilter, BigDecimal priceMinFilter, BigDecimal priceMaxFilter) {
-        return productRepository.findWithFilter(productNameFilter, descriptionFilter, priceMinFilter, priceMaxFilter).
-                stream().map(ProductRepr::new).collect(Collectors.toList());
+    public Page<ProductRepr> findWithFilter(String productNameFilter, String descriptionFilter, BigDecimal priceMinFilter,
+                                        BigDecimal priceMaxFilter, Integer page, Integer size, String sortField) {
+        Specification<Product> spec = Specification.where(null);
+        if (productNameFilter != null && !productNameFilter.isBlank())
+            spec = spec.and(ProductSpecification.productNameLike(productNameFilter));
+        if (descriptionFilter != null && !descriptionFilter.isBlank())
+            spec = spec.and(ProductSpecification.descriptionLike(descriptionFilter));
+        if (priceMinFilter != null)
+            spec = spec.and(ProductSpecification.priceMinFilter(priceMinFilter));
+        if (priceMaxFilter != null)
+            spec = spec.and(ProductSpecification.priceMaxFilter(priceMaxFilter));
+        if (sortField != null && !sortField.isBlank())
+            return productRepository.findAll(spec, PageRequest.of(page, size, Sort.by(sortField))).map(ProductRepr::new);
+        return productRepository.findAll(spec, PageRequest.of(page, size)).map(ProductRepr::new);
     }
 }

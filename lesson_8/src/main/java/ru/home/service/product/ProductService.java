@@ -1,5 +1,7 @@
 package ru.home.service.product;
 
+import org.springframework.data.domain.Page;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -14,5 +16,6 @@ public interface ProductService {
 
     void delete(long id);
 
-    List<ProductRepr> findWithFilter(String productNameFilter, String descriptionFilter, BigDecimal minAge, BigDecimal maxAge);
+    Page<ProductRepr> findWithFilter(String productNameFilter, String descriptionFilter, BigDecimal priceMinFilter,
+                                     BigDecimal priceMaxFilter, Integer page, Integer size, String sortField);
 }
