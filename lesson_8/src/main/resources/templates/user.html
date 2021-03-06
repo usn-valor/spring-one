@@ -43,18 +43,18 @@
                     <tr>
                         <th scope="col">Id
                             <a th:href="@{/user(page=${param.page}, size=${param.size},
-                               usernameFilter=${param.usernameFilter}, minAge=${param.minAge},
-                               maxAge=${param.maxAge}, sortField='id')}"><i class="fa fa-sort-down"></i></a>
+                               usernameFilter=${param.usernameFilter}, ageMinFilter=${param.ageMinFilter},
+                               ageMaxFilter=${param.ageMaxFilter}, sortField='id')}"><i class="fa fa-sort-down"></i></a>
                         </th>
                         <th scope="col">Username
                             <a th:href="@{/user(page=${param.page}, size=${param.size},
-                               usernameFilter=${param.usernameFilter}, minAge=${param.minAge},
-                               maxAge=${param.maxAge}, sortField='username')}"><i class="fa fa-sort-down"></i></a>
+                               usernameFilter=${param.usernameFilter}, ageMinFilter=${param.ageMinFilter},
+                               ageMaxFilter=${param.ageMaxFilter}, sortField='username')}"><i class="fa fa-sort-down"></i></a>
                         </th>
                         <th scope="col">Age
                             <a th:href="@{/user(page=${param.page}, size=${param.size},
-                               usernameFilter=${param.usernameFilter}, minAge=${param.minAge},
-                               maxAge=${param.maxAge}, sortField='age')}"><i class="fa fa-sort-down"></i></a>
+                               usernameFilter=${param.usernameFilter}, ageMinFilter=${param.ageMinFilter},
+                               ageMaxFilter=${param.ageMaxFilter}, sortField='age')}"><i class="fa fa-sort-down"></i></a>
                         </th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -86,7 +86,7 @@
                     <li class="page-item">
                         <a class="page-link" th:if="!${users.number <= 0}"
                            th:href="@{/user(page=${(users.number + 1) - 1}, size=${users.size},
-                           usernameFilter=${param.usernameFilter}, minAge=${param.minAge}, maxAge=${param.maxAge},
+                           usernameFilter=${param.usernameFilter}, ageMinFilter=${param.ageMinFilter}, ageMaxFilter=${param.ageMaxFilter},
                            sortField=${param.sortField})}">Previous</a>
                     </li>
 
@@ -95,14 +95,15 @@
                         class="page-item">
                         <a th:text="${num}"
                            th:href="@{/user(page=${num}, size=${users.size},
-                           usernameFilter=${param.usernameFilter}, minAge=${param.minAge}, maxAge=${param.maxAge}, sortField=${param.sortField})}"
+                           usernameFilter=${param.usernameFilter}, ageMinFilter=${param.ageMinFilter}, ageMaxFilter=${param.ageMaxFilter},
+                           sortField=${param.sortField})}"
                            class="page-link">1 <span th:if="${num == users.number + 1}" class="sr-only">(current)</span></a>
                     </li>
 
                     <li class="page-item">
                         <a class="page-link" th:if="!${users.number >= users.totalPages - 1}"
                            th:href="@{/user(page=${(users.number + 1) + 1}, size=${users.size},
-                           usernameFilter=${param.usernameFilter}, minAge=${param.minAge}, maxAge=${param.maxAge},
+                           usernameFilter=${param.usernameFilter}, ageMinFilter=${param.ageMinFilter}, ageMaxFilter=${param.ageMaxFilter},
                            sortField=${param.sortField})}">Next</a>
                     </li>
                 </ul>
