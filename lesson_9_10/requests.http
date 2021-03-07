@@ -1,0 +1,30 @@
+GET http://localhost:8080/spring-mvc-app/api/v1/user/all
+
+###
+
+GET http://localhost:8080/spring-mvc-app/api/v1/user/1
+Authorization: Basic admin 111
+###
+
+POST http://localhost:8080/spring-mvc-app/api/v1/user
+Content-Type: application/json
+Authorization: Basic admin 111
+
+{
+    "username": "user88",
+    "password": "qwer",
+    "email": "user88@mail.com",
+    "age": 9
+}
+
+###
+
+GET http://localhost:8080/spring-mvc-app/api/v1/user/filter?page=2&sortField=id
+
+###
+
+POST http://localhost:8080/spring-mvc-app/api/v1/cart/1/user/2/product?qty=1
+
+###
+
+GET http://localhost:8080/spring-mvc-app/api/v1/cart/1/user
