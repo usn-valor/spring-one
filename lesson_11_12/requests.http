@@ -8,7 +8,7 @@ Authorization: Basic admin 111
 
 POST http://localhost:8080/spring-mvc-app/api/v1/user
 Content-Type: application/json
-Authorization: Basic admin 111
+Authorization: Basic Losya 1234
 
 {
     "username": "user88",

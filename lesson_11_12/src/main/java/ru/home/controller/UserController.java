@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,7 @@ import ru.home.persist.user.RoleRepository;
 import ru.home.service.user.UserRepr;
 import ru.home.service.user.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -59,8 +63,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String editPage(@PathVariable("id") Long id, Model model) {
+    public String editPage(@PathVariable("id") Long id, Model model, Authentication auth, HttpServletRequest req) {
         logger.info("Edit page for id {} requested", id);
+
+        //auth = SecurityContextHolder.getContext().getAuthentication();
+        auth.getAuthorities().stream().anyMatch(ath -> ath.getAuthority().equals("ROLE_ADMIN"));
+        req.isUserInRole("ROLE_ADMIN");
 
         model.addAttribute("roles", roleRepository.findAll());
         model.addAttribute("user", userService.findById(id).orElseThrow(NotFoundException::new)); /* после всех
@@ -68,6 +76,7 @@ public class UserController {
         return "user_form";
     }
 
+    @Secured({"SUPER_ADMIN"})
     @PostMapping("/update")
     public String update(@Valid @ModelAttribute("user") UserRepr user, BindingResult result, Model model) {
         logger.info("Update endpoint requested");
@@ -94,6 +103,7 @@ public class UserController {
         return "redirect:/user";
     }
 
+    @Secured({"SUPER_ADMIN"})
     @GetMapping("/new")
     public String create(Model model) {
         logger.info("Create new user request");

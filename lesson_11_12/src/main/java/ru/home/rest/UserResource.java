@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.home.controller.BadRequestException;
 import ru.home.controller.NotFoundException;
@@ -61,6 +62,7 @@ public class UserResource {
         );
     }
 
+    @Secured("SUPER_ADMIN")
     @PostMapping(consumes = "application/json")
     public UserRepr create(@RequestBody UserRepr userRepr) {
         if (userRepr.getId() != null)
@@ -69,6 +71,7 @@ public class UserResource {
         return userRepr;
     }
 
+    @Secured("SUPER_ADMIN")
     @PutMapping(consumes = "application/json")
     public void update(@RequestBody UserRepr userRepr) {
         if (userRepr.getId() == null)
