@@ -23,7 +23,7 @@ public class SecurityConfiguration {
         auth.inMemoryAuthentication()
                 .withUser("mem_user")
                 .password(passwordEncoder.encode("password"))
-                .roles("ADMIN");
+                .roles("ADMIN", "SUPER_ADMIN");
 
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userAuthService);
@@ -69,8 +69,8 @@ public class SecurityConfiguration {
                     .authorizeRequests()
                     .antMatchers("/**/*.css", "/**/*.js").permitAll()
                     .antMatchers("/product/**").permitAll()
-                    //.antMatchers("/user/**").hasRole("ADMIN")
-                    .antMatchers("/user/**").permitAll()
+                    .antMatchers("/user/**").hasRole("ADMIN")
+                    //.antMatchers("/user/**").authenticated()
                     .and()
                     .formLogin()
                     .loginPage("/login")

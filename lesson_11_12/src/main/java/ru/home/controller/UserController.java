@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.home.persist.user.Role;
 import ru.home.persist.user.RoleRepository;
 import ru.home.service.user.UserRepr;
 import ru.home.service.user.UserService;
@@ -76,7 +77,7 @@ public class UserController {
         return "user_form";
     }
 
-    @Secured({"SUPER_ADMIN"})
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/update")
     public String update(@Valid @ModelAttribute("user") UserRepr user, BindingResult result, Model model) {
         logger.info("Update endpoint requested");
@@ -103,16 +104,23 @@ public class UserController {
         return "redirect:/user";
     }
 
-    @Secured({"SUPER_ADMIN"})
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/new")
     public String create(Model model) {
         logger.info("Create new user request");
+
+        if (!roleRepository.existsById(1L)) {
+            model.addAttribute("roles", roleRepository.save(new Role("ROLE_SUPER_ADMIN")));
+            model.addAttribute("roles", roleRepository.save(new Role("ROLE_ADMIN")));
+            model.addAttribute("roles", roleRepository.save(new Role("ROLE_GUEST")));
+        }
 
         model.addAttribute("roles", roleRepository.findAll());
         model.addAttribute("user", new UserRepr());
         return "user_form";
     }
 
+    @Secured({"ROLE_SUPER_ADMIN"})
     @DeleteMapping("/{id}")
     public String remove(@PathVariable("id") Long id) {
         logger.info("User delete request");
